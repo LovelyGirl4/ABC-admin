@@ -17,7 +17,6 @@ import UserList from './User/UserList';
 import AddUser from './User/AddUser';
 
 import Profile from './Profile';
-import Messages from './Messages';
 
 import CustomerList from './Customer/CustomerList';
 import Customer from './Customer/Customer';
@@ -90,15 +89,6 @@ class App extends React.Component {
                             exact
                             path='/profile'
                             component={Profile}
-                            isAuthenticated={token}
-                            {...this.props}
-                            collapsedSider={collapsedSider}
-                            onCollapseSider={this.onCollapseSider}
-                        />
-                        <PrivateRoute
-                            exact
-                            path='/messages'
-                            component={Messages}
                             isAuthenticated={token}
                             {...this.props}
                             collapsedSider={collapsedSider}
