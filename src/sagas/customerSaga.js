@@ -77,33 +77,6 @@ export function * fetchWebmasterCustomer(state, role, pagination) {
     }
 }
 
-export function * orderCustomer(role, pagination) {
-    try {
-        const { customers, current_page, total_count, page_size } = yield call(api.fetchOrderCustomers, role, pagination);
-        let arr = [];
-        let customersID = [];
-        // 并发调接口，获取每个客户询价的值
-        for (let c of customers) {
-            customersID.push(c.user_id);
-            arr.push(call(api.fetchOrders, 1, ['new', 'client_confirmed', 'confirmed', 'client_validated', 'validated', 'partial_delivered', 'delivered', 'client_completed', 'completed', 'cancelled'], c.user_id));
-        }
-        const inquiryList = yield arr;
-        // 将total_count写进customerList
-        const customerList = customers.map(cus => {
-            let customer;
-            for (let i = 0; i < customersID.length; i++) {
-                if (cus.user_id === customersID[i]) {
-                    customer = {...cus, number: inquiryList[i].total_count};
-                }
-            }
-            return customer;
-        });
-        yield put({ type: ActionTypes.FETCH_ORDER_CUSTOMERS_SUCCESS, customers: customerList, total_count, current_page, page_size});
-    } catch (e) {
-        yield put({ type: ActionTypes.FETCH_ORDER_CUSTOMERS_FAILURE });
-    }
-}
-
 export default {
     watchFetchCustomerList: function * () {
         while (true) {
@@ -137,16 +110,6 @@ export default {
                 yield cancel(lastTask);
             }
             lastTask = yield fork(fetchWebmasterCustomer, state, role, pagination);
-        }
-    },
-    watchOrderCustomer: function * () {
-        let lastTask;
-        while (true) {
-            const {role, pagination} = yield take(ActionTypes.FETCH_ORDER_CUSTOMERS);
-            if (lastTask) {
-                yield cancel(lastTask);
-            }
-            lastTask = yield fork(orderCustomer, role, pagination);
         }
     }
 };
