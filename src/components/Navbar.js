@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, Layout, Breadcrumb, Button, Row, Col, Affix, Avatar, Icon, Badge, Tooltip, Input } from 'antd';
 import { Link } from 'react-router-dom';
 import store from '../store';
-import LOGO from '../components/img/G-will.svg';
+import LOGO from '../components/img/LOGO.png';
 import { baseURL } from '../common';
 import styles from './Navbar.css';
 const { Header, Content, Footer, Sider } = Layout;
@@ -24,15 +24,19 @@ const Navbar = props => {
     }
     const orderUsers = props.orderUsers;
     return <Layout>
-        <Sider collapsible
+        <Sider
+            collapsible
             collapsed={props.collapsedSider}
-            onCollapse={props.onCollapseSider}>
+            onCollapse={props.onCollapseSider}
+        >
             <div>
                 {props.collapsedSider ? null : <div>
                     <div style={{
                         textAlign: 'center',
+                        marginTop: 20,
+                        marginBottom: 20,
                     }}>
-                        <img src={baseURL(LOGO)} width={190}/>
+                        <img src={LOGO} width={190}/>
                     </div>
                     <div style={{marginLeft: '32px', marginBottom: '12px'}}>
                         <Row>
@@ -62,9 +66,9 @@ const Navbar = props => {
                             <MenuItem key='/user/user-list' style={adminStyle}>业务员列表</MenuItem>
                             <MenuItem key='/user/add' style={adminStyle}>添加业务员</MenuItem>
                         </SubMenu>
-                        <SubMenu title={<span><Icon type='area-chart' /><span>调查统计</span></span>}>
-                            <MenuItem style={adminStyle}>用户数统计</MenuItem>
-                            <MenuItem >完成问卷统计</MenuItem>
+                        <SubMenu key='/statistics' title={<span><Icon type='area-chart' /><span>调查统计</span></span>}>
+                            <MenuItem key='/statistics/line-chart' style={adminStyle}>用户数统计</MenuItem>
+                            <MenuItem key='/statistics/column-chart'>完成问卷统计</MenuItem>
                         </SubMenu>
                         <SubMenu key='/setting' title={<span><Icon type="setting" /><span>系统设置</span></span>}>
                             <MenuItem key='/login'>退出系统</MenuItem>
@@ -98,6 +102,12 @@ const Navbar = props => {
                                 }
                                 if (el === 'customer') {
                                     return <Breadcrumb.Item key='user'><Link to='/user/customer-list'>客户详情</Link></Breadcrumb.Item>;
+                                }
+                                if (el === 'line-chart') {
+                                    return <Breadcrumb.Item key='chart'><Link to='/user/line-chart'>用户数统计</Link></Breadcrumb.Item>;
+                                }
+                                if (el === 'column-chart') {
+                                    return <Breadcrumb.Item key='chart'><Link to='/user/line-chart'>完成问卷统计</Link></Breadcrumb.Item>;
                                 }
 
                                 // // 放最后, 默认orderID都是数字

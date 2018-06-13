@@ -5,6 +5,7 @@ import login from './login';
 import user from './userReducer';
 import customer from './customerReducer';
 import form from './formReducer';
+import chart from './chartReducer';
 
 import { getDefaultLocale, getToken } from '../common';
 
@@ -37,5 +38,6 @@ export default combineReducers({
     user,
     customer,
     form,
+    chart,
     router: routerReducer,
 });

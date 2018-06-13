@@ -21,6 +21,9 @@ import Profile from './Profile';
 import CustomerList from './Customer/CustomerList';
 import Customer from './Customer/Customer';
 
+import LineChart from './Statistics/LineChart';
+import ColumnChart from './Statistics/ColumnChart';
+
 const Home = () => (<div>Home</div>);
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
@@ -107,6 +110,24 @@ class App extends React.Component {
                             exact
                             path='/user/customer/:id'
                             component={Customer}
+                            isAuthenticated={token}
+                            {...this.props}
+                            collapsedSider={collapsedSider}
+                            onCollapseSider={this.onCollapseSider}
+                        />
+                        <PrivateRoute
+                            exact
+                            path='/statistics/line-chart'
+                            component={LineChart}
+                            isAuthenticated={token}
+                            {...this.props}
+                            collapsedSider={collapsedSider}
+                            onCollapseSider={this.onCollapseSider}
+                        />
+                        <PrivateRoute
+                            exact
+                            path='/statistics/column-chart'
+                            component={ColumnChart}
                             isAuthenticated={token}
                             {...this.props}
                             collapsedSider={collapsedSider}

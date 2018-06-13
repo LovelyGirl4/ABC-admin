@@ -2,6 +2,7 @@ import { fork, take } from 'redux-saga/effects';
 import loginSagas from './login';
 import userSagas from './userSaga';
 import customerSagas from './customerSaga';
+import chartSagas from './chartSaga';
 
 function createSagas(...args) {
     const sagas = [];
@@ -14,5 +15,5 @@ function createSagas(...args) {
 }
 
 export default function * root() {
-    yield createSagas(loginSagas, userSagas, customerSagas);
+    yield createSagas(loginSagas, userSagas, customerSagas, chartSagas);
 }
