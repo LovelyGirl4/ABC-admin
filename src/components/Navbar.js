@@ -78,7 +78,7 @@ const Navbar = props => {
                 <Row>
                     <Col span={21}>
                         <Breadcrumb>
-                            <Breadcrumb.Item key='/'><Link to='/' style={{ marginLeft: '16px' }}>QTour</Link></Breadcrumb.Item>
+                            <Breadcrumb.Item key='/'><Link to='/' style={{ marginLeft: '16px' }}>ABC</Link></Breadcrumb.Item>
                             {props.location.pathname.split('/').map((el, i) => {
                                 const length = props.location.pathname.split('/').length;
                                 if (el === 'profile') {

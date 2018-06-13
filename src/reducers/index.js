@@ -5,7 +5,6 @@ import login from './login';
 import user from './userReducer';
 import customer from './customerReducer';
 import form from './formReducer';
-import history from './historyReducer';
 
 import { getDefaultLocale, getToken } from '../common';
 
@@ -34,7 +33,6 @@ const app = (state = initialState, a) => {
 
 export default combineReducers({
     app,
-    history,
     login,
     user,
     customer,
