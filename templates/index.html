@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <!-- <script type="text/javascript" src="https://www.nowapi.com/style/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+             $.ajax({
+                type : 'get',
+                async : false,
+                url: 'http://api.k780.com/?app=finance.rate&scur=USD&tcur=CNY&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json&jsoncallback=data',
+                dataType : 'jsonp',
+                jsonp : 'callback',
+                jsonpCallback : 'data',
+                success : function(data){
+                    var rate = data.result.rate;
+                    localStorage.setItem('rate', Number(rate).toFixed(4));
+                }
+            });
+        });
+    </script> -->
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+    <% } %>
+</head>
+<body>
+    <div id="app"></div>
+    <% for (var js in htmlWebpackPlugin.files.js) { %>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
+    <% } %>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+{
+    "changeLanguage": "中文",
+    "GlobalMessage.AuthError": "authorization error",
+    "GlobalMessage.NotPermission": "Not Permission",
+    "GlobalMessage.Country": "en"
+}

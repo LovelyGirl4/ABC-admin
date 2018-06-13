@@ -1,0 +1,6 @@
+{
+    "changeLanguage": "EN",
+    "GlobalMessage.AuthError": "授权失败",
+    "GlobalMessage.NotPermission": "没有权限",
+    "GlobalMessage.Country": "cn"
+}

@@ -1,0 +1,122 @@
+/*步骤条ProgressStep改内置样式*/
+.ant-steps .ant-steps-tail > i {
+    width: 100%;
+}
+.ant-steps-dot .ant-steps-item .ant-steps-step {
+    width: 90px;
+}
+.ant-steps-dot .ant-steps-head-inner {
+    margin-left: 10px;
+}
+.ant-steps-tail {
+    padding-right: 25px ! important;
+    padding-left: 17px ! important;
+}
+.ant-steps-dot .ant-steps-status-process .ant-steps-head-inner {
+    width: 1px ! important;
+    height: 1px ! important;
+    margin-bottom: 6px;
+    color: #fff;
+}
+.ant-steps .ant-steps-item.ant-steps-status-finish .ant-steps-title {
+    margin-left: 14px;
+}
+
+/*表格table中数字靠右*/
+th.columnRight, td.columnRight{
+    text-align: right !important;
+}
+/*表格table的文字换行规则*/
+.ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+    word-break: keep-all !important;
+}
+
+/*级联下拉框的高度*/
+.ant-cascader-menu{
+    width: 200px !important;
+    height: 450px !important;
+    overflow-y: auto;
+}
+
+/*table样式*/
+.ant-table-middle .ant-table-expanded-row > td:last-child {
+  padding: 0 48px 0 8px;
+}
+
+.ant-table-middle .ant-table-expanded-row > td:last-child .ant-table-thead th {
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.ant-table-middle .ant-table-expanded-row > td:last-child .ant-table-thead th:first-child {
+  padding-left: 0;
+}
+
+.ant-table-middle .ant-table-expanded-row > td:last-child .ant-table-row td:first-child {
+  padding-left: 0;
+}
+.ant-table-middle .ant-table-expanded-row .ant-table-small {
+    border: none;
+}
+.ant-table-middle .ant-table-expanded-row .ant-table-row:last-child td {
+  border: none;
+}
+
+.ant-table-middle .ant-table-expanded-row .ant-table-thead > tr > th {
+  background: none;
+}
+
+.ant-table-middle .table-operation a:not(:last-child) {
+  margin-right: 24px;
+}
+/*Navbar徽标的样式*/
+.ant-badge-count {
+    height: 26px !important;
+    border-radius: 12px !important;
+    min-width: 26px !important;
+    background: #f04134;
+    color: #fff;
+    line-height: 26px !important;
+    margin-left: -8px;
+    box-shadow: 0 0 0 1px #f04134;
+}
+.ant-badge-not-a-wrapper .ant-badge-count {
+    top: -3px !important;
+}
+/*card新版本title*/
+.ant-card-head-title {
+    width: 100%;
+}
+
+/*自定义筛选框*/
+.custom-filter-dropdown {
+  padding: 8px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+}
+
+.custom-filter-dropdown input {
+  width: 130px;
+  margin-right: 8px;
+}
+
+.highlight {
+  color: #f50;
+}
+
+#remarkQuoteInput {
+    width: 150px;
+    resize: none;
+    transition: width height 1s;
+    -moz-transition: width height 1s; /* Firefox 4 */
+    -webkit-transition: width height 1s; /* Safari and Chrome */
+    -o-transition: width height 1s; /* Opera */
+}
+#remarkQuoteInput:focus {
+    width: 300px;
+    height: 70px;
+}
+.style_words_1_v5J {
+    white-space: normal;
+    word-break: break-word !important;
+}
