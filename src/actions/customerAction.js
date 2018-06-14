@@ -25,3 +25,8 @@ export const fetchWebmasterCustomer = (state, role, pagination) => ({
     role,
     pagination
 });
+
+export const fetchSurveyResult = (id) => ({
+    type: ActionTypes.FETCH_SURVEY_RESULT,
+    id
+});

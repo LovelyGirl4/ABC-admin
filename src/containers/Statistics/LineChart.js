@@ -4,9 +4,16 @@ import { connect } from 'react-redux';
 import echarts from 'echarts';
 
 const option = {
+    tooltip: {
+        show: 'true',
+        trigger: 'axis',
+        axisPointer: {
+            type: 'line'
+        }
+    },
     xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: ['1号', '2号', '3号', '4号', '5号', '6号', '7号']
     },
     yAxis: {
         type: 'value'

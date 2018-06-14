@@ -20,6 +20,7 @@ import Profile from './Profile';
 
 import CustomerList from './Customer/CustomerList';
 import Customer from './Customer/Customer';
+import Survey from './Customer/Survey';
 
 import LineChart from './Statistics/LineChart';
 import ColumnChart from './Statistics/ColumnChart';
@@ -110,6 +111,15 @@ class App extends React.Component {
                             exact
                             path='/user/customer/:id'
                             component={Customer}
+                            isAuthenticated={token}
+                            {...this.props}
+                            collapsedSider={collapsedSider}
+                            onCollapseSider={this.onCollapseSider}
+                        />
+                        <PrivateRoute
+                            exact
+                            path='/user/survey/:id'
+                            component={Survey}
                             isAuthenticated={token}
                             {...this.props}
                             collapsedSider={collapsedSider}

@@ -41,8 +41,14 @@ const option = {
             max: 250,
             interval: 50,
             axisLabel: {
-                formatter: '{value}'
-            }
+                // formatter: '{value}'
+            },
+            axisPointer: {
+                label: {
+                    formatter: (params) => params.value.toFixed(0)
+                },
+                z: 100,
+            },
         }
     ],
     series: [

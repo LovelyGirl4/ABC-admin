@@ -77,6 +77,17 @@ export function * fetchWebmasterCustomer(state, role, pagination) {
     }
 }
 
+export function * fetchSurveyResultFunc (id) {
+    try {
+        // const profile = yield select(state => state.login.data.profile);
+        // const { customers, current_page, total_count } = yield call(api.fetchCustomerList, pagination, firstName, surName, companyName, status, profile);
+        yield put({ type: ActionTypes.FETCH_SURVEY_RESULT_SUCCESS });
+    } catch (e) {
+        console.error(e);
+        yield put({ type: ActionTypes.FETCH_SURVEY_RESULT_ERROR });
+    }
+}
+
 export default {
     watchFetchCustomerList: function * () {
         while (true) {
@@ -111,5 +122,11 @@ export default {
             }
             lastTask = yield fork(fetchWebmasterCustomer, state, role, pagination);
         }
-    }
+    },
+    watchFetchSurveyResult: function * () {
+        while (true) {
+            const { id } = yield take(ActionTypes.FETCH_SURVEY_RESULT);
+            yield call(fetchSurveyResultFunc, id);
+        }
+    },
 };

@@ -161,13 +161,19 @@ class CustomerList extends React.Component {
                 />;
             }
         }, {
-            title: '详细信息',
-            key: 'detail',
-            dataIndex: 'detail',
-            render: (text, record) => <a onClick={e => {
+            title: '操作',
+            key: 'operation',
+            dataIndex: 'operation',
+            render: (text, record) => <span>
+            <a onClick={e => {
                 e.preventDefault();
                 this.props.history.push(`/user/customer/${record.id}`);
             }}>详细信息</a>
+            <a style={{ marginLeft: 14 }} onClick={e => {
+                e.preventDefault();
+                this.props.history.push(`/user/survey/${record.id}`);
+            }}>问卷结果</a>
+        </span>
         }];
         const rerenderColumnNames = ['first_name', 'surname', 'company_name'];
         rerenderColumnNames.forEach((name) => {

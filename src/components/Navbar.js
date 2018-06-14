@@ -103,6 +103,9 @@ const Navbar = props => {
                                 if (el === 'customer') {
                                     return <Breadcrumb.Item key='user'><Link to='/user/customer-list'>客户详情</Link></Breadcrumb.Item>;
                                 }
+                                if (el === 'survey') {
+                                    return <Breadcrumb.Item key='user'><Link to='/user/customer-list'>问卷调查结果</Link></Breadcrumb.Item>;
+                                }
                                 if (el === 'line-chart') {
                                     return <Breadcrumb.Item key='chart'><Link to='/user/line-chart'>用户数统计</Link></Breadcrumb.Item>;
                                 }

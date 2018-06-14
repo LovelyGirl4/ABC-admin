@@ -40,10 +40,10 @@ class AddUser extends React.Component {
             return u.role === 'webmaster' && u.is_active === true;
         });
         const waiterOption = waiters && waiters.map(w => {
-            return <Option value={w.user_id} key={w.user_id}>{w.name}</Option>;
+            return <Option value={(w.user_id).toString()} key={w.user_id}>{w.name}</Option>;
         });
         const readOnly = role === 'webmaster' ? true : false;
-        const disable = role === 'webmaster' ? 'disabled' : '';
+        const disable = role === 'webmaster' ? true : false;
         let registrationCertificate;
         if (customer.registration_certificate) {
             try {
@@ -93,7 +93,8 @@ class AddUser extends React.Component {
                     <Radio name='state' value='disapproved'>未激活</Radio>
                 </RadioGroup>
             </FormItem>
-            <FormItem
+            {/*
+                <FormItem
                 {...formItemLayout}
                 label='业务员'
             >
@@ -108,6 +109,7 @@ class AddUser extends React.Component {
                     {waiterOption}
                 </Select>
             </FormItem>
+            */}
             <FormItem
                 {...formItemLayout}
                 label='名字'

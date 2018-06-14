@@ -9,6 +9,9 @@ const initialState = {
         total_count: 0,
         page_size: 0,
     },
+    survey: {
+
+    }
 };
 
 const data = (state = initialState.data, a) => {
