@@ -6,6 +6,6 @@ export const fetchLineChart = param => ({
 });
 
 export const fetchColumnChart = param => ({
-    type: FETCH_LINE_CHART,
+    type: FETCH_COLUMN_CHART,
     param,
 });

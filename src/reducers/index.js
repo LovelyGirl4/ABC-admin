@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { AUTHENTICATED_SUCCESS, CHANGE_LANGUAGE } from '../constants/ActionTypes';
-import login from './login';
+import login from './loginReducer';
 import user from './userReducer';
 import customer from './customerReducer';
 import form from './formReducer';

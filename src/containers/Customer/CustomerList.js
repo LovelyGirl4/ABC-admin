@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Table, Modal, Input, Form, Switch, Button, Row, Col, Icon } from 'antd';
+import { Table, Modal, Input, Form, Switch, Button, Row, Col, Icon, Avatar } from 'antd';
 import { fetchCustomerList, updateCustomer } from '../../actions/customerAction';
+import { baseURL } from '../../common';
 
 class CustomerList extends React.Component {
     constructor(props) {
@@ -41,125 +42,91 @@ class CustomerList extends React.Component {
         });
         return regObj;
     }
-    onFilterSearch = (type) => {
-        const {first_nameSearchText, surnameSearchText, company_nameSearchText, filteredState} = this.state;
-        const pagination = { current: 1, pageSize: 10 };
-        this.props.fetchCustomerList(pagination, first_nameSearchText, surnameSearchText, company_nameSearchText, filteredState);
+    // onFilterSearch = (type) => {
+    //     const {first_nameSearchText, surnameSearchText, company_nameSearchText, filteredState} = this.state;
+    //     const pagination = { page: 1, page_size: 10 };
+    //     this.props.fetchCustomerList(pagination, first_nameSearchText, surnameSearchText, company_nameSearchText, filteredState);
 
-        let filtered;
-        this.customFilterItems.forEach(item => {
-            if (type === item) {
-                filtered = this.state[item + 'SearchText'];
-            }
-        });
-        this.setState({
-            [type + 'FilterDropdownVisible']: false,
-            [type + 'Filtered']: !!filtered,
-        });
-    }
-    onFilterReset = (type) => {
-        let newState = {
-            [type + 'FilterDropdownVisible']: false,
-        };
-        this.customFilterItems.forEach(item => {
-            newState = {
-                ...newState,
-                [item + 'Filtered']: false,
-                [item + 'SearchText']: ''
-            };
-        });
-        this.setState(newState);
-        this.props.fetchCustomerList({current: 1});
-    }
-    onFilterInputChange = (e, type) => {
-        this.setState({ [type + 'SearchText']: e.target.value });
-    }
+    //     let filtered;
+    //     this.customFilterItems.forEach(item => {
+    //         if (type === item) {
+    //             filtered = this.state[item + 'SearchText'];
+    //         }
+    //     });
+    //     this.setState({
+    //         [type + 'FilterDropdownVisible']: false,
+    //         [type + 'Filtered']: !!filtered,
+    //     });
+    // }
+    // onFilterReset = (type) => {
+    //     let newState = {
+    //         [type + 'FilterDropdownVisible']: false,
+    //     };
+    //     this.customFilterItems.forEach(item => {
+    //         newState = {
+    //             ...newState,
+    //             [item + 'Filtered']: false,
+    //             [item + 'SearchText']: ''
+    //         };
+    //     });
+    //     this.setState(newState);
+    //     this.props.fetchCustomerList({ page: 1, page_size: 10 });
+    // }
+    // onFilterInputChange = (e, type) => {
+    //     this.setState({ [type + 'SearchText']: e.target.value });
+    // }
     tableChange = (pagination, filters) => {
-        this.setState({
-            filteredState: filters && filters.state
-        });
-        if (!filters) {
-            this.props.fetchCustomerList({current: 1});
-        }
-        const {first_nameSearchText, surnameSearchText, company_nameSearchText, filteredState} = this.state;
-        this.props.fetchCustomerList(pagination, first_nameSearchText, surnameSearchText, company_nameSearchText, filters && filters.state);
+        // this.setState({
+        //     filteredState: filters && filters.state
+        // });
+        this.props.fetchCustomerList({ page: pagination.current, page_size: 10 });
+        // if (!filters) {
+        //     this.props.fetchCustomerList({ page: 1, page_size: 10 });
+        // }
+        // const {first_nameSearchText, surnameSearchText, company_nameSearchText, filteredState} = this.state;
+        // this.props.fetchCustomerList(pagination, first_nameSearchText, surnameSearchText, company_nameSearchText, filters && filters.state);
     }
     render() {
-        const {
-            dataSource,
-            current_page,
-            total_count
-        } = this.props.customer.data;
-        const data = dataSource && dataSource.map((item, index) => {
-            return {...item, key: index};
+        const {fetching, customers, page} = this.props;
+        const data = customers && customers.map((item, index) => {
+            return {...item, key: index + 1};
         });
-        const { fetching } = this.props.customer.ui;
-        const { onFilterInputChange, onFilterSearch, onFilterReset } = this;
+        // const { fetching } = this.props.customer.ui;
+        // const { onFilterInputChange, onFilterSearch, onFilterReset } = this;
         const columns = [{
-            title: 'Customer ID',
-            key: 'id',
-            dataIndex: 'id',
+            title: '序号',
+            key: 'key',
+            dataIndex: 'key',
             width: 30,
         }, {
-            title: '名字',
-            key: 'first_name',
-            dataIndex: 'first_name',
+            title: '头像',
+            key: 'headimgurl',
+            dataIndex: 'headimgurl',
+            render: text => {
+                const avator = text ? <img src={baseURL(text)} style={{ width: 30, height: 30, borderRadius: '3px' }}/> : <Avatar shape="square" icon="user" />;
+                return avator;
+            }
         }, {
-            title: '中间名',
-            key: 'middle_name',
-            dataIndex: 'middle_name',
-        }, {
-            title: '姓氏',
-            key: 'surname',
-            dataIndex: 'surname',
+            title: '昵称',
+            key: 'nick_name',
+            dataIndex: 'nick_name',
         }, {
             title: '性别',
             key: 'gender',
             dataIndex: 'gender',
-            render: text => text === 'male' ? '男' : '女',
+            render: text => text === 1 ? '男' : '女',
         }, {
-            title: '职位',
-            key: 'position',
-            dataIndex: 'position',
+            title: '省份',
+            key: 'province',
+            dataIndex: 'province',
         }, {
-            title: '公司名称',
-            key: 'company_name',
-            dataIndex: 'company_name',
-        }, {
-            title: '国家',
-            key: 'country',
-            dataIndex: 'country',
+            title: '城市',
+            key: 'city',
+            dataIndex: 'city',
         }, {
             title: '手机号',
             key: 'mobile',
             dataIndex: 'mobile',
-        }, {
-            title: '电话',
-            key: 'telephone',
-            dataIndex: 'telephone',
-        }, {
-            title: '状态',
-            key: 'state',
-            dataIndex: 'state',
-            width: 90,
-            filterMultiple: false,
-            filters: [{
-                text: '已激活',
-                value: 'approved',
-            }, {
-                text: '未激活',
-                value: ['disapproved', 'pending_approval'].join('|'),
-            }],
-            render: (text, record, index) => {
-                return <Switch
-                    checkedChildren={'已激活'}
-                    unCheckedChildren={'未激活'}
-                    checked={text === 'approved' ? true : false}
-                    onChange={checked => {
-                        this.props.updateCustomer({ ...record, state: checked === true ? 'approved' : 'disapproved'}, index);
-                    }}
-                />;
-            }
         }, {
             title: '操作',
             key: 'operation',
@@ -188,18 +155,18 @@ class CustomerList extends React.Component {
                                         }}
                                         placeholder={'Search ' + name}
                                         value={this.state[name + 'SearchText']}
-                                        onChange={(e) => onFilterInputChange(e, name)}
-                                        onPressEnter={() => onFilterSearch(name)}
+                                        // onChange={(e) => onFilterInputChange(e, name)}
+                                        // onPressEnter={() => onFilterSearch(name)}
                                     />
                                 </Row>
                                 <Row gutter={16} style={{marginTop: 8}}>
                                     <Col className="gutter-row" span={12}>
-                                        <Button type="primary" onClick={() => onFilterSearch(name)}>
+                                        <Button type="primary">
                                             Search
                                         </Button>
                                     </Col>
                                     <Col className="gutter-row" span={12}>
-                                        <Button onClick={() => onFilterReset(name)}>Reset</Button>
+                                        <Button>Reset</Button>
                                     </Col>
                                 </Row>
                             </div>
@@ -213,7 +180,7 @@ class CustomerList extends React.Component {
                 }
             });
         });
-        const tablePage = {current: current_page, total: total_count};
+        const tablePage = {current: page.current_page, total: page.total_count};
         return <div>
             <Table
                 columns={columns}
@@ -226,16 +193,20 @@ class CustomerList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchCustomerList({current: 1});
+        this.props.fetchCustomerList({page: 1, page_size: 10});
     }
     componentWillReceiveProps(nextProps) {
         if (!this.props.profile && nextProps.profile) {
-            this.props.fetchCustomerList({current: 1});
+            this.props.fetchCustomerList({page: 1, page_size: 10});
         }
     }
 }
 
 export default connect(
-    ({ customer, login }) => ({ customer, profile: login.data && login.data.profile }),
+    ({ customer }) => ({
+        customers: customer.data.dataSource,
+        page: customer.data.page,
+        ui: customer.ui.fetching
+    }),
     { fetchCustomerList, updateCustomer },
 )(CustomerList);

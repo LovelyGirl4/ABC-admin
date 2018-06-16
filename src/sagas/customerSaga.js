@@ -7,9 +7,19 @@ import { onChange } from '../actions/formAction';
 
 export function * fetchCustomerList (pagination, firstName, surName, companyName, status) {
     try {
-        const profile = yield select(state => state.login.data.profile);
-        const { customers, current_page, total_count } = yield call(api.fetchCustomerList, pagination, firstName, surName, companyName, status, profile);
-        yield put({ type: ActionTypes.FETCH_CUSTOMER_LIST_SUCCESS, dataSource: customers, current_page, total_count });
+        // const profile = yield select(state => state.login.data.profile);
+        const response = yield call(api.fetchCustomerList);
+        const {page, users, wx_profiles} = response;
+        console.log('response:', response);
+        const data = users && users.map(u => {
+            const profile = wx_profiles.filter(wx => wx.unionid === u.unionid)[0];
+            return {
+                ...profile,
+                id: u.id,
+                mobile: u.mobile
+            };
+        });
+        yield put({ type: ActionTypes.FETCH_CUSTOMER_LIST_SUCCESS, data, page});
     } catch (e) {
         console.error(e);
         yield put({ type: ActionTypes.FETCH_CUSTOMER_LIST_ERROR });
@@ -79,8 +89,8 @@ export function * fetchWebmasterCustomer(state, role, pagination) {
 
 export function * fetchSurveyResultFunc (id) {
     try {
-        // const profile = yield select(state => state.login.data.profile);
-        // const { customers, current_page, total_count } = yield call(api.fetchCustomerList, pagination, firstName, surName, companyName, status, profile);
+        const result = yield call(api.fetchSurveyResult, id);
+        console.log('fetchSurveyResult:', result);
         yield put({ type: ActionTypes.FETCH_SURVEY_RESULT_SUCCESS });
     } catch (e) {
         console.error(e);

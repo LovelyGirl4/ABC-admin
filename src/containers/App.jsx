@@ -22,8 +22,8 @@ import CustomerList from './Customer/CustomerList';
 import Customer from './Customer/Customer';
 import Survey from './Customer/Survey';
 
-import LineChart from './Statistics/LineChart';
-import ColumnChart from './Statistics/ColumnChart';
+import LineChart from './Chart/LineChart';
+import ColumnChart from './Chart/ColumnChart';
 
 const Home = () => (<div>Home</div>);
 

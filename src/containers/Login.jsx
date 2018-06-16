@@ -72,13 +72,15 @@ class Login extends React.Component {
                         {...formItemLayout}
                         hasFeedback
                     >
-                        {getFieldDecorator('email', {
-                            rules: [{
-                                type: 'email', message: '邮箱',
-                            }, {
-                                required: true, message: '请输入邮箱',
-                            }],
-                        })(
+                        {getFieldDecorator('email',
+                            // {
+                            //     rules: [{
+                            //         type: 'email', message: '邮箱',
+                            //     }, {
+                            //         required: true, message: '请输入邮箱',
+                            //     }],
+                            // }
+                        )(
                             <Input
                                 placeholder='用户名'
                                 prefix={<Icon type='user' />}

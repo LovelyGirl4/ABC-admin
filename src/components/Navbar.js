@@ -16,8 +16,8 @@ import en_US from '../locale/en_US';
 const Navbar = props => {
     const adminStyle = props.profile.role === 'super_admin' ? {display: 'block'} : {display: 'none'};
     const role = props.profile.role;
-    const avator = props.profile && props.profile.avator;
-    const name = props.profile && props.profile.name;
+    const avator = props.profile && props.profile.headportrait;
+    const name = props.profile && props.profile.username;
     let headerWidth = document.body.clientWidth - 200;
     if (props.collapsedSider) {
         headerWidth = '100%';
@@ -33,12 +33,13 @@ const Navbar = props => {
                 {props.collapsedSider ? null : <div>
                     <div style={{
                         textAlign: 'center',
-                        marginTop: 20,
-                        marginBottom: 20,
+                        paddingTop: 10,
+                        paddingBottom: 15,
+                        backgroundColor: '#f1f2f1'
                     }}>
                         <img src={LOGO} width={190}/>
                     </div>
-                    <div style={{marginLeft: '32px', marginBottom: '12px'}}>
+                    <div style={{marginLeft: '32px', marginBottom: '12px', marginTop: 15}}>
                         <Row>
                             <Col span={6}>
                                 <Link to='/profile'><Avatar src={baseURL(avator)} size='large'/></Link>
@@ -63,14 +64,17 @@ const Navbar = props => {
                     <Menu.ItemGroup style={{ marginTop: 22 }}>
                         <SubMenu key='/user' title={<span><Icon type='user' /><span>用户管理</span></span>}>
                             <MenuItem key='/user/customer-list'>客户列表</MenuItem>
-                            <MenuItem key='/user/user-list' style={adminStyle}>业务员列表</MenuItem>
-                            <MenuItem key='/user/add' style={adminStyle}>添加业务员</MenuItem>
+                            {/*
+                                <MenuItem key='/user/user-list'>业务员列表</MenuItem>
+                                <MenuItem key='/user/add'>添加业务员</MenuItem>
+                            */}
                         </SubMenu>
                         <SubMenu key='/statistics' title={<span><Icon type='area-chart' /><span>调查统计</span></span>}>
-                            <MenuItem key='/statistics/line-chart' style={adminStyle}>用户数统计</MenuItem>
+                            <MenuItem key='/statistics/line-chart'>用户数统计</MenuItem>
                             <MenuItem key='/statistics/column-chart'>完成问卷统计</MenuItem>
                         </SubMenu>
                         <SubMenu key='/setting' title={<span><Icon type="setting" /><span>系统设置</span></span>}>
+                            <MenuItem key='/login'>退出系统</MenuItem>
                             <MenuItem key='/login'>退出系统</MenuItem>
                         </SubMenu>
                     </Menu.ItemGroup>

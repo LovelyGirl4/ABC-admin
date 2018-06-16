@@ -6,8 +6,9 @@ import { fetchLogin, fetchProfile } from '../api';
 
 function * tokenLogin() {
     try {
-        const feedback = yield call(fetchProfile);
-        yield put({ type: TOKEN_LOGIN_SUCCESS, profile: feedback});
+        const {user} = yield call(fetchProfile);
+        console.log('feedback:', user);
+        yield put({ type: TOKEN_LOGIN_SUCCESS, profile: user });
     } catch (e) {
         console.log(e);
     }
@@ -18,20 +19,22 @@ function * login(username, password) {
     try {
         yield put({ type: FETCH_LOGIN, fetching: true });
         const { access_token } = yield call(fetchLogin, username, password);
+        window.localStorage.setItem('token', access_token);
+        yield put(push('/'));
         // 将token存到store中
         yield put({ type: AUTHENTICATED_SUCCESS, token: access_token });
         try {
             const profile = yield call(fetchProfile);
             yield put({type: FETCH_LOGIN_SUCCESS, profile: profile});
-            if ((profile.role === 'super_admin' || profile.role === 'webmaster') && profile.is_active) {
-                const { from } = yield select(state => state.router.location.state || { from: { pathname: '/' } });
-                yield put(push(from.pathname));
-                const { token } = yield select(state => state.app);
-                // 将token存进localStorage
-                window.localStorage.setItem('token', token);
-            } else {
-                throw { msg: messages['GlobalMessage.NotPermission'], profile };
-            }
+            // if ((profile.role === 'super_admin' || profile.role === 'webmaster') && profile.is_active) {
+            //     const { from } = yield select(state => state.router.location.state || { from: { pathname: '/' } });
+            //     yield put(push(from.pathname));
+            //     const { token } = yield select(state => state.app);
+            //     // 将token存进localStorage
+            //     window.localStorage.setItem('token', token);
+            // } else {
+            //     throw { msg: messages['GlobalMessage.NotPermission'], profile };
+            // }
         } catch (error) {
             yield put({ type: AUTHENTICATED_SUCCESS, token: null });
             message.error(error.msg);

@@ -3,22 +3,22 @@ import store from '../store';
 // 测试
 // let API_DOMAIN = 'http://api.test.autopartshub.com';
 
-let API_DOMAIN;
-let API_CLIENT_ID;
+let API_DOMAIN = 'http://qapi.obenben.com';
+let API_CLIENT_ID = 'app';
 
-if (process.env.NODE_ENV === 'development') {
-    // API_DOMAIN = 'http://g-will-api.obenben.com';
-    API_DOMAIN = 'http://api.test.autopartshub.com';
-    API_CLIENT_ID = 'admin';
-} else if (process.env.NODE_ENV === 'production') {
-    // API_DOMAIN = 'http://g-will-api.obenben.com';
-    API_DOMAIN = 'http://api.autopartshub.com';
-    API_CLIENT_ID = 'admin';
-}
-if (process.env.DEPLOY_ENV === 'test') {
-    API_DOMAIN = 'http://api.test.autopartshub.com';
-    API_CLIENT_ID = 'admin';
-}
+// if (process.env.NODE_ENV === 'development') {
+//     // API_DOMAIN = 'http://g-will-api.obenben.com';
+//     API_DOMAIN = 'http://api.test.autopartshub.com';
+//     API_CLIENT_ID = 'admin';
+// } else if (process.env.NODE_ENV === 'production') {
+//     // API_DOMAIN = 'http://g-will-api.obenben.com';
+//     API_DOMAIN = 'http://api.autopartshub.com';
+//     API_CLIENT_ID = 'admin';
+// }
+// if (process.env.DEPLOY_ENV === 'test') {
+//     API_DOMAIN = 'http://api.test.autopartshub.com';
+//     API_CLIENT_ID = 'admin';
+// }
 
 export {API_DOMAIN, API_CLIENT_ID};
 
@@ -26,8 +26,9 @@ const serialize = obj => Object.keys(obj).map(key => key + '=' + encodeURICompon
 
 const _fetch = (url, option = {}) => {
     return fetch(API_DOMAIN + url, option).then(res => {
+        console.log('res:', res);
         if (res.status > 199 && res.status < 300 || res.status == 409) {
-            return res;
+            return res.json();
         } else {
             throw res;
         }
@@ -53,14 +54,10 @@ const _authFetchJson = (url, option = {}) => {
             'Authorization': `Bearer ${access_token}`,
             'Content-Type': 'application/json'
         }
-    }).then(res => {
-        if (res.status === 204 || res.status === 205) {
-            return {};
-        }
-        return res.json();
     });
 };
 
+// 用户登录
 export const fetchLogin = (username, password) => {
     return _fetch('/oauth/token', {
         method: 'POST',
@@ -72,16 +69,42 @@ export const fetchLogin = (username, password) => {
             password,
             grant_type: 'password',
             client_id: API_CLIENT_ID,
-            client_secret: '',
+            client_secret: 'secret',
             scope: ''
         })
-    }).then(res => res.json());
+    });
 };
 
+// 获取用户自己的信息
 export const fetchProfile = () => {
     const access_token = store.getState().app.token;
     const id = JSON.parse(atob(access_token.split('.')[1])).sub;
-    return _authFetchJson('/api/users/' + id);
+    return _authFetchJson(`/api/users/${id}`);
+};
+
+// 获取客户列表
+export const fetchCustomerList = (page = 1, page_size = 10) => {
+    return _authFetchJson(`/api/exam?page=${page}&page_size=${page_size}`);
+};
+
+// 获取客户详情
+export const fetchCustomer = id => {
+    return _authFetchJson(`/api/users/${id}`);
+};
+
+// 获取单个客户问卷调查结果
+export const fetchSurveyResult = (id) => {
+    return _authFetchJson(`/api/users/${id}/exams`);
+};
+
+// 获取折线图数据
+export const fetchLineChart = () => {
+    return _authFetchJson('/api/abcusers');
+};
+
+// 获取柱形图数据
+export const fetchColumnChart = () => {
+    return _authFetchJson('/api/abcexamusers');
 };
 
 
@@ -116,21 +139,6 @@ export const uploadFile = files => {
             resolve('http://img05.tooopen.com/images/20160121/tooopen_sy_155168162826.jpg');
         }, 1000);
     });
-};
-
-export const fetchCustomerList = (pagination, firstName, surName, companyName, status, profile) => {
-    const newPagination = pagination ? pagination : {current: 1};
-    const first_name = firstName || '';
-    const surname = surName || '';
-    const company_name = companyName || '';
-    if (profile.role === 'webmaster') {
-        return _authFetchJson(`/api/customers?waiter_id=${profile.user_id}&page=${newPagination.current}&first_name=${first_name}&surname=${surname}&company_name=${company_name}&state=${status || ''}`);
-    }
-    return _authFetchJson(`/api/customers?page=${newPagination.current}&first_name=${first_name}&surname=${surname}&company_name=${company_name}&state=${status || ''}`);
-};
-
-export const fetchCustomer = id => {
-    return _authFetchJson(`/api/customers/${id}`);
 };
 
 export const updateCustomer = customer => {

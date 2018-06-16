@@ -57,31 +57,34 @@ class Profile extends React.Component {
         });
     }
     render() {
-        const { profile } = this.props.form;
+        const { profile } = this.props;
         const {image, showCropper} = this.state;
         return <div>
-            <ImageCropper image={image} handleOk={this.handleOk} doUpload={this.doUpload}
+            {/*
+                <ImageCropper image={image} handleOk={this.handleOk} doUpload={this.doUpload}
                 handleCancel={this.handleCancel} showCropper={showCropper}
                 modalWidth='40%' cropperStyle={{
                     height: 400,
                     width: '100%'
                 }} ratio={4 / 4}/>
+            */}
             <Form onSubmit={e => {
                 e.preventDefault();
-                this.props.updateProfile(profile);
+                // this.props.updateProfile(profile);
             }}>
                 <FormItem
                     {...formItemLayout}
                     label='头像'
                 >
                     <img
-                        src={baseURL(profile.avator)}
+                        src={baseURL(profile.headportrait)}
                         style={{ width: 30, height: 30, cursor: 'pointer', borderRadius: '3px' }}
                         onClick={() => {
                             document.getElementById('editor-upload').click();
                         }}
                     />
-                    <input id='editor-upload' key={showCropper ? 1 : 2} type='file' style={{ display: 'none' }}
+                    {/*
+                        <input id='editor-upload' key={showCropper ? 1 : 2} type='file' style={{ display: 'none' }}
                         onChange={e => {
                             // 单条处理
                             e.preventDefault();
@@ -92,12 +95,13 @@ class Profile extends React.Component {
                             });
                         }}
                     />
+                    */}
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
                     label='姓名'
                 >
-                    <Input name='name' value={profile.name} onChange={this.props.onChange}/>
+                    <Input name='name' value={profile.username} onChange={this.props.onChange}/>
                 </FormItem>
                 <FormItem
                     {...formItemLayout}
@@ -117,26 +121,30 @@ class Profile extends React.Component {
                 >
                     <Input name='note' type='textarea' value={profile.note} onChange={this.props.onChange}/>
                 </FormItem>
-                <FormItem
+                {/*
+                    <FormItem
                     wrapperCol={{ span: 12, offset: 6 }}
                 >
                     <Button type='primary' htmlType='submit'>更改</Button>
                 </FormItem>
+                */}
             </Form>
         </div>;
     }
 
     componentDidMount() {
         this.props.fetchProfile();
-        getUploadConfig({resource: 'profile', id: 'profile', type: 'images'}).then(res => {
-            this.setState({
-                awsInfo: res
-            });
-        });
+        // getUploadConfig({resource: 'profile', id: 'profile', type: 'images'}).then(res => {
+        //     this.setState({
+        //         awsInfo: res
+        //     });
+        // });
     }
 }
 
 export default connect(
-    ({ form }) => ({ form }),
+    ({ login }) => ({
+        profile: login.data.profile
+    }),
     { fetchProfile, onChange: onChange('profile'), uploadAvator, updateProfile },
 )(Profile);

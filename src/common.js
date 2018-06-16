@@ -245,7 +245,7 @@ export const getBase64Image = (img) => {
 };
 
 
-const base_url = 'http://gw-s3-dev.s3.amazonaws.com/';
+const base_url = 'http://p8v17ppmd.bkt.clouddn.com/';
 export const baseURL = (url) => {
     let temp;
     if (url) {

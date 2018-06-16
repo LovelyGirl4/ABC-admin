@@ -1,23 +1,15 @@
 // 部署脚本
 
+// 部署脚本
+
 var exec = require('child_process').exec;
 
 const USER = 'root';
 const HOST = 'obenben.com';
 const PORT = 22;
-const PATH = '/home/g-will/admin';
+const PATH = '/data/sites/qtour.obenben.com/app';
 
-var cmd;
-if (process.env.DEPLOY_ENV === 'development') {
-    // obenben
-    cmd = `rsync -Pvr -e "ssh -p ${PORT}" dist/ ${USER}@${HOST}:${PATH}`;
-} else if (process.env.DEPLOY_ENV === 'production') {
-    // g-will
-    cmd = 'rsync -Pvr -e "ssh -p 22 -i G-Will-AWS-Key.pem" dist/ ubuntu@13.56.37.5:/home/ubuntu/G-Will/admin';
-} else if (process.env.DEPLOY_ENV === 'test') {
-    // g-will-test
-    cmd = 'rsync -Pvr -e "ssh -p 22 -i G-Will-AWS-Key.pem" dist/ ubuntu@13.56.37.5:/home/ubuntu/G-Will/admin-test';
-}
+var cmd = `rsync -Pvr -e "ssh -o StrictHostKeyChecking=no -p ${PORT}" dist/ ${USER}@${HOST}:${PATH}`;
 
 var out = exec(cmd);
 

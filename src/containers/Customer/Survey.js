@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Form, Input } from 'antd';
+import { fetchSurveyResult } from '../../actions/customerAction';
 
 const FormItem = Form.Item;
 
@@ -21,6 +22,11 @@ class Survey extends Component {
         super(props);
     }
 
+    componentDidMount() {
+        console.log('this.props:', this.props);
+        this.props.fetchSurveyResult(this.props.match.params.id);
+    }
+
     render() {
         return <div style={{marginLeft: 100, marginTop: 20}}>
             <p style={{fontSize: 16, fontWeight: 'bold'}}>1、所有银行日均（日常）存款（万元）</p>
@@ -33,5 +39,5 @@ class Survey extends Component {
 
 export default connect(
     () => ({ }),
-    {},
+    {fetchSurveyResult},
 )(Survey);
