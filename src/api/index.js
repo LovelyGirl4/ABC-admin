@@ -99,7 +99,7 @@ export const fetchSurveyResult = (id) => {
 
 // 获取折线图数据
 export const fetchLineChart = () => {
-    return _authFetchJson('/api/abcusers');
+    return _authFetchJson('/api/abcusers?action=login_abc');
 };
 
 // 获取柱形图数据

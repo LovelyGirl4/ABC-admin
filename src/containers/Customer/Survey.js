@@ -28,16 +28,26 @@ class Survey extends Component {
     }
 
     render() {
-        return <div style={{marginLeft: 100, marginTop: 20}}>
-            <p style={{fontSize: 16, fontWeight: 'bold'}}>1、所有银行日均（日常）存款（万元）</p>
-            <p style={{fontSize: 14, fontWeight: 'bold', marginLeft: 26}}>20</p>
-            <p style={{fontSize: 16, fontWeight: 'bold'}}>2、已有保证（信用）贷款（万元）</p>
-            <p style={{fontSize: 14, fontWeight: 'bold', marginLeft: 26}}>50</p>
+        const {data} = this.props;
+        return <div style={{margin: 'auto', marginTop: 20, textAlign: 'left', width: 400}}>
+            {data.map((d, index) => {
+                return <div key={index} style={{marginTop: 10}}>
+                    <h2>{d.name}</h2>
+                    {d.questions.map((q, i) => {
+                        return <div style={{marginTop: 10}} key={i}>
+                        <p style={{fontSize: 15, fontWeight: 'bold'}}>{i + 1}、{q.question}</p>
+                        <p style={{fontSize: 16, fontWeight: 'bold', marginLeft: 26}}>{q.answer}</p>
+                    </div>;
+                    })}
+                </div>;
+            })}
         </div>;
     }
 }
 
 export default connect(
-    () => ({ }),
+    ({customer}) => ({
+        data: customer.data.exam
+    }),
     {fetchSurveyResult},
 )(Survey);

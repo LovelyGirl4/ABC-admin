@@ -7,7 +7,6 @@ import { fetchLogin, fetchProfile } from '../api';
 function * tokenLogin() {
     try {
         const {user} = yield call(fetchProfile);
-        console.log('feedback:', user);
         yield put({ type: TOKEN_LOGIN_SUCCESS, profile: user });
     } catch (e) {
         console.log(e);
@@ -24,8 +23,8 @@ function * login(username, password) {
         // 将token存到store中
         yield put({ type: AUTHENTICATED_SUCCESS, token: access_token });
         try {
-            const profile = yield call(fetchProfile);
-            yield put({type: FETCH_LOGIN_SUCCESS, profile: profile});
+            const {user} = yield call(fetchProfile);
+            yield put({type: FETCH_LOGIN_SUCCESS, profile: user});
             // if ((profile.role === 'super_admin' || profile.role === 'webmaster') && profile.is_active) {
             //     const { from } = yield select(state => state.router.location.state || { from: { pathname: '/' } });
             //     yield put(push(from.pathname));

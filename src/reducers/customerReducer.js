@@ -8,7 +8,9 @@ const initialState = {
         page: {
             current_page: 1,
             total_count: 0
-        }
+        },
+        customer: {},
+        exam: []
     },
 };
 
@@ -20,6 +22,18 @@ const data = (state = initialState.data, a) => {
                 ...state,
                 dataSource: a.data,
                 page: a.page || { current_page: 1, total_count: 0}
+            };
+            break;
+        case ActionTypes.FETCH_SURVEY_RESULT_SUCCESS:
+            nextState = {
+                ...state,
+                exam: a.data
+            };
+            break;
+        case ActionTypes.FETCH_CUSTOMER_SUCCESS:
+            nextState = {
+                ...state,
+                customer: a.data
             };
             break;
         default:

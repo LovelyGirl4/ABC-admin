@@ -33,10 +33,8 @@ class AddUser extends React.Component {
         };
     }
     render() {
-        const { customers } = this.props;
-        const customer = customers[0];
-        console.log('customers:', customers);
-        const {id, headimgurl, nick_name, gender, province, city, mobile} = customer;
+        const { customer } = this.props;
+        const {id, headimgurl, nick_name, sex, province, city, mobile} = customer;
         const readOnly = false;
         const disable = false;
         console.log('customer:', customer);
@@ -67,13 +65,13 @@ class AddUser extends React.Component {
                 {...formItemLayout}
                 label='昵称'
             >
-                <Input name='nick_name' value={customer.nick_name} onChange={this.props.onChange} readOnly={readOnly}/>
+                <Input name='nick_name' value={nick_name} onChange={this.props.onChange} readOnly={readOnly}/>
             </FormItem>
             <FormItem
                 {...formItemLayout}
                 label='姓别'
             >
-                <RadioGroup onChange={this.props.onChange} value={gender} disabled={disable}>
+                <RadioGroup onChange={this.props.onChange} value={sex} disabled={disable}>
                     <Radio name='gender' value={1} >男</Radio>
                     <Radio name='gender' value={2} >女</Radio>
                 </RadioGroup>
@@ -100,8 +98,7 @@ class AddUser extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchCustomerList({page: 1, page_size: 10});
-        // this.props.fetchCustomer(this.props.match.params.id);
+        this.props.fetchCustomer(this.props.match.params.id);
         // this.props.fetchUserList();
     }
     // componentWillReceiveProps(nextProps) {
@@ -113,7 +110,7 @@ class AddUser extends React.Component {
 
 export default connect(
     ({ customer }) => ({
-        customers: customer.data.dataSource,
+        customer: customer.data.customer,
     }),
     { onChange: onChange('customer'), fetchCustomer, fetchCustomerList},
 )(AddUser);

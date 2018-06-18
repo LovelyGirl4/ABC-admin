@@ -19,10 +19,10 @@ class LineChart extends React.Component {
         const {data} = nextProps;
         let seriesData = [], xAxisData = [];
         data.forEach(d => {
-            const date = new Date(d.date);
             seriesData.push(d.count);
-            xAxisData.push(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
+            xAxisData.push(d.date.slice(0, 10));
         });
+        console.log('data:', data);
         const option = this._calcOption({xAxisData, seriesData});
         // 绘制图表
         this.myChart.setOption(option);
@@ -39,16 +39,19 @@ class LineChart extends React.Component {
             },
             xAxis: {
                 type: 'category',
+                name: '日期',
+                boundaryGap: false,
                 data: xAxisData
             },
             yAxis: {
                 type: 'value',
                 name: '数量',
-                interval: 1,
+                minInterval: 1,
             },
             series: [{
                 data: seriesData,
-                type: 'line'
+                type: 'line',
+                // showSymbol: false
             }]
         };
         return option;

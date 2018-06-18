@@ -28,9 +28,13 @@ export function * fetchCustomerList (pagination, firstName, surName, companyName
 
 function * fetchCustomer (id) {
     try {
-        const customer = yield call(api.fetchCustomer, id);
-        yield put(complete('customer')(customer));
-        yield put({ type: ActionTypes.FETCH_CUSTOMER_SUCCESS });
+        const {user, wx_profile} = yield call(api.fetchCustomer, id);
+        yield put({ type: ActionTypes.FETCH_CUSTOMER_SUCCESS, data: {
+            ...wx_profile,
+            id: user.id,
+            mobile: user.mobile,
+            role: user.role
+        }});
     } catch (e) {
         console.error(e);
         yield put({ type: ActionTypes.FETCH_CUSTOMER_LIST_ERROR });
@@ -89,9 +93,20 @@ export function * fetchWebmasterCustomer(state, role, pagination) {
 
 export function * fetchSurveyResultFunc (id) {
     try {
-        const result = yield call(api.fetchSurveyResult, id);
-        console.log('fetchSurveyResult:', result);
-        yield put({ type: ActionTypes.FETCH_SURVEY_RESULT_SUCCESS });
+        const {ExamsProfile} = yield call(api.fetchSurveyResult, id);
+        const {answers, exam, questions} = ExamsProfile;
+        const newQuestions = questions.map(q => {
+            const answer = answers.filter(a => a.question_id === q.id)[0];
+            return {id: q.id, question: q.content, answer: answer.content, exam_id: q.exam_id};
+        });
+        const data = exam.map(e => {
+            return {
+                ...e,
+                questions: newQuestions.filter(n => n.exam_id === e.id)
+            };
+        });
+        console.log('fetchSurveyResult data:', data);
+        yield put({ type: ActionTypes.FETCH_SURVEY_RESULT_SUCCESS, data: data });
     } catch (e) {
         console.error(e);
         yield put({ type: ActionTypes.FETCH_SURVEY_RESULT_ERROR });

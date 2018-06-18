@@ -3,7 +3,7 @@ import { LOGIN_FORM_CHANGE, FETCH_LOGIN, FETCH_LOGIN_SUCCESS, TOKEN_LOGIN_SUCCES
 
 const initialState = {
     data: {
-        profile: '',
+        profile: {},
         messages: '',
     },
     form: {

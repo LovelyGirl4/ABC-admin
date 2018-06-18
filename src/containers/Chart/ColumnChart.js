@@ -20,10 +20,9 @@ class ColumnChart extends React.Component {
         const {data} = nextProps;
         let seriesData30 = [], seriesData50 = [], xAxisData = [];
         data.forEach(d => {
-            const date = new Date(d.date);
             seriesData30.push(d.min_quota);
             seriesData50.push(d.max_quota);
-            xAxisData.push(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
+            xAxisData.push(d.date.slice(0, 10));
         });
         const option = this._calcOption({xAxisData, seriesData30, seriesData50});
         this.myChart.setOption(option);
@@ -53,6 +52,7 @@ class ColumnChart extends React.Component {
             xAxis: [
                 {
                     type: 'category',
+                    name: '日期',
                     data: xAxisData,
                     axisPointer: {
                         type: 'shadow'
@@ -65,7 +65,7 @@ class ColumnChart extends React.Component {
                     name: '数量',
                     // min: 0,
                     // max: 250,
-                    interval: 1,
+                    minInterval: 1,
                     axisLabel: {
                         // formatter: '{value}'
                     },
