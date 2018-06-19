@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { Table, Modal, Input, Form, Switch, Button, Row, Col, Icon, Avatar } from 'antd';
+import { Table, Modal, Input, Form, Switch, Button, Row, Col, Icon, Avatar, message } from 'antd';
 import { fetchCustomerList, updateCustomer } from '../../actions/customerAction';
 import { baseURL } from '../../common';
+import { generateExcel, jsonCustomersData } from '../../utils/create_excel';
+import { fetchAllCustomers } from '../../api/index';
 
 class CustomerList extends React.Component {
     constructor(props) {
@@ -182,6 +184,16 @@ class CustomerList extends React.Component {
         });
         const tablePage = {current: page.current_page, total: page.total_count};
         return <div>
+            <Button style={{marginBottom: 15}} onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const hide = message.loading('Downloading', 0);
+                fetchAllCustomers().then(res => {
+                    const newCustomers = jsonCustomersData(res);
+                    generateExcel(newCustomers, 'ABC Users List.xlsx', 'customer');
+                    hide();
+                });
+            }}><Icon type='download'/>点击下载用户excel</Button>
             <Table
                 columns={columns}
                 dataSource={data}

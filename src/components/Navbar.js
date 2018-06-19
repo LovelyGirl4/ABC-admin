@@ -48,10 +48,10 @@ const Navbar = props => {
                                 return <Breadcrumb.Item key='user'><Link to='/user/add'>添加业务员</Link></Breadcrumb.Item>;
                             }
                             if (el === 'customer-list') {
-                                return <Breadcrumb.Item key='user'><Link to='/user/customer-list'>客户列表</Link></Breadcrumb.Item>;
+                                return <Breadcrumb.Item key='user'><Link to='/user/customer-list'>用户列表</Link></Breadcrumb.Item>;
                             }
                             if (el === 'customer') {
-                                return <Breadcrumb.Item key='user'><Link to='/user/customer-list'>客户详情</Link></Breadcrumb.Item>;
+                                return <Breadcrumb.Item key='user'><Link to='/user/customer-list'>用户详情</Link></Breadcrumb.Item>;
                             }
                             if (el === 'survey') {
                                 return <Breadcrumb.Item key='user'><Link to='/user/customer-list'>问卷调查结果</Link></Breadcrumb.Item>;
@@ -116,7 +116,7 @@ const Navbar = props => {
                     >
                         <Menu.ItemGroup style={{ marginTop: 22 }}>
                             <SubMenu key='/user' title={<span><Icon type='user' /><span>用户管理</span></span>}>
-                                <MenuItem key='/user/customer-list'>客户列表</MenuItem>
+                                <MenuItem key='/user/customer-list'>用户列表</MenuItem>
                                 {/*
                                     <MenuItem key='/user/user-list'>业务员列表</MenuItem>
                                     <MenuItem key='/user/add'>添加业务员</MenuItem>

@@ -86,6 +86,11 @@ export const fetchCustomerList = (page = 1, page_size = 10) => {
     return _authFetchJson(`/api/exam?page=${page}&page_size=${page_size}`);
 };
 
+// 获取所有客户
+export const fetchAllCustomers = () => {
+    return _authFetchJson('/api/exam?page=1&page_size=999999');
+};
+
 // 获取客户详情
 export const fetchCustomer = id => {
     return _authFetchJson(`/api/users/${id}`);
