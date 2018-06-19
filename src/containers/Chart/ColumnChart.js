@@ -10,7 +10,6 @@ class ColumnChart extends React.Component {
     }
 
     componentDidMount() {
-        console.log('fetchColumnChart7777');
         this.props.fetchColumnChart();
         this.myChart = echarts.init(this.lineChart);
     }

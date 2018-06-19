@@ -23,24 +23,27 @@ class Survey extends Component {
     }
 
     componentDidMount() {
-        console.log('this.props:', this.props);
         this.props.fetchSurveyResult(this.props.match.params.id);
     }
 
     render() {
         const {data} = this.props;
         return <div style={{margin: 'auto', marginTop: 20, textAlign: 'left', width: 400}}>
-            {data.map((d, index) => {
-                return <div key={index} style={{marginTop: 10}}>
-                    <h2>{d.name}</h2>
-                    {d.questions.map((q, i) => {
-                        return <div style={{marginTop: 10}} key={i}>
-                        <p style={{fontSize: 15, fontWeight: 'bold'}}>{i + 1}、{q.question}</p>
-                        <p style={{fontSize: 16, fontWeight: 'bold', marginLeft: 26}}>{q.answer}</p>
-                    </div>;
+            {
+                data.length > 0 ? <div>
+                    {data.map((d, index) => {
+                        return <div key={index} style={{marginTop: 10}}>
+                            <h2>{d.name}</h2>
+                            {d.questions.map((q, i) => {
+                                return <div style={{marginTop: 10}} key={i}>
+                                <p style={{fontSize: 15, fontWeight: 'bold'}}>{i + 1}、{q.question}</p>
+                                <p style={{fontSize: 16, fontWeight: 'bold', marginLeft: 26}}>{q.answer}</p>
+                            </div>;
+                            })}
+                        </div>;
                     })}
-                </div>;
-            })}
+                </div> : <div style={{marginTop: 50, fontSize: 16, textAlign: 'center'}}>暂无问卷</div>
+            }
         </div>;
     }
 }

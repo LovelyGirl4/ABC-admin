@@ -120,3 +120,8 @@ th.columnRight, td.columnRight{
     white-space: normal;
     word-break: break-word !important;
 }
+
+.ant-card-head {
+    height: 58px !important;
+    line-height: 58px !important;
+}

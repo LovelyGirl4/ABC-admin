@@ -5,17 +5,12 @@ import store from '../store';
 import LOGO from '../components/img/LOGO.png';
 import { baseURL } from '../common';
 import styles from './Navbar.css';
+
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItem = Menu.Item;
 
-import { FormattedMessage } from 'react-intl';
-import zh_CN from '../locale/zh_CN';
-import en_US from '../locale/en_US';
-
 const Navbar = props => {
-    const adminStyle = props.profile.role === 'super_admin' ? {display: 'block'} : {display: 'none'};
-    const role = props.profile.role;
     const {headportrait, username} = props.profile && props.profile;
     let headerWidth = document.body.clientWidth - 200;
     if (props.collapsedSider) {
@@ -97,7 +92,7 @@ const Navbar = props => {
             >
                 <div>
                     {props.collapsedSider ? null : <div>
-                        <div style={{marginLeft: '32px', marginBottom: '12px', marginTop: 15}}>
+                        <div style={{marginLeft: '32px', marginBottom: '12px', marginTop: 78}}>
                             <Row>
                                 <Col span={6}>
                                     <Link to='/profile'><Avatar src={baseURL(headportrait)} size='large'/></Link>
@@ -113,7 +108,7 @@ const Navbar = props => {
                         theme='dark'
                         mode='inline'
                         id={styles['style-1']}
-                        style={{ height: document.body.clientHeight - 115, overflow: 'auto'}}
+                        style={{ height: document.body.clientHeight - 135, overflow: 'auto'}}
                         onSelect={e => {
                             props.history.push(e.key);
                         }}

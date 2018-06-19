@@ -22,7 +22,6 @@ class LineChart extends React.Component {
             seriesData.push(d.count);
             xAxisData.push(d.date.slice(0, 10));
         });
-        console.log('data:', data);
         const option = this._calcOption({xAxisData, seriesData});
         // 绘制图表
         this.myChart.setOption(option);

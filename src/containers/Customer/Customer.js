@@ -37,7 +37,6 @@ class AddUser extends React.Component {
         const {id, headimgurl, nick_name, sex, province, city, mobile} = customer;
         const readOnly = false;
         const disable = false;
-        console.log('customer:', customer);
         // const { updateFetching, customerFetching } = this.props.customer.ui;
         return <Form onSubmit={e => {
             e.preventDefault();

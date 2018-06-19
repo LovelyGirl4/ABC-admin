@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Input, Form, Icon, Card, Row, Col, message } from 'antd';
 import { fetchLogin } from '../actions/login';
+import LOGO from '../components/img/LOGO.png';
 const FormItem = Form.Item;
 const inputStyle = {
     xs: { span: 18},
@@ -65,8 +66,9 @@ class Login extends React.Component {
         const height = document.body.clientHeight * 0.28;
         return <div style={{paddingTop: height}}>
             <Card
-                title='QTour 后台管理'
-                style={{ width: 400, height: 300, margin: 'auto' }}>
+                // extra='ABC 后台管理'
+                title={<img src={LOGO} style={{marginTop: 10, height: 37, width: 120}}/>}
+                style={{ width: 450, height: 320, margin: 'auto' }}>
                 <Form onSubmit={this.submit}>
                     <FormItem
                         {...formItemLayout}

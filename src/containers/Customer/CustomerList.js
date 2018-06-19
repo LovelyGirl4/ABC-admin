@@ -112,8 +112,8 @@ class CustomerList extends React.Component {
             dataIndex: 'nick_name',
         }, {
             title: '性别',
-            key: 'gender',
-            dataIndex: 'gender',
+            key: 'sex',
+            dataIndex: 'sex',
             render: text => text === 1 ? '男' : '女',
         }, {
             title: '省份',

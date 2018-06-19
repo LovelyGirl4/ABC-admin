@@ -26,7 +26,6 @@ const serialize = obj => Object.keys(obj).map(key => key + '=' + encodeURICompon
 
 const _fetch = (url, option = {}) => {
     return fetch(API_DOMAIN + url, option).then(res => {
-        console.log('res:', res);
         if (res.status > 199 && res.status < 300 || res.status == 409) {
             return res.json();
         } else {
