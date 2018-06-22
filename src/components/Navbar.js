@@ -11,7 +11,7 @@ const SubMenu = Menu.SubMenu;
 const MenuItem = Menu.Item;
 
 const Navbar = props => {
-    const {headportrait, username} = props.profile && props.profile;
+    const {head_portrait, username} = props.profile && props.profile;
     let headerWidth = document.body.clientWidth - 200;
     if (props.collapsedSider) {
         headerWidth = '100%';
@@ -95,7 +95,7 @@ const Navbar = props => {
                         <div style={{marginLeft: '32px', marginBottom: '12px', marginTop: 78}}>
                             <Row>
                                 <Col span={6}>
-                                    <Link to='/profile'><Avatar src={baseURL(headportrait)} size='large'/></Link>
+                                    <Link to='/profile'><Avatar src={baseURL(head_portrait)} size='large'/></Link>
                                 </Col>
                                 <Col span={10} offset={3}>
                                     <p style={{color: '#919191'}}>Welcome,</p>

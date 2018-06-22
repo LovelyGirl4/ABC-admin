@@ -77,7 +77,7 @@ class Profile extends React.Component {
                     label='头像'
                 >
                     <img
-                        src={baseURL(profile.headportrait)}
+                        src={baseURL(profile.head_portrait)}
                         style={{ width: 30, height: 30, cursor: 'pointer', borderRadius: '3px' }}
                         onClick={() => {
                             document.getElementById('editor-upload').click();
