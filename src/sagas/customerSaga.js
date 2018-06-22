@@ -8,7 +8,7 @@ import { onChange } from '../actions/formAction';
 export function * fetchCustomerList (pagination, firstName, surName, companyName, status) {
     try {
         // const profile = yield select(state => state.login.data.profile);
-        const {page, users, wx_profiles} = yield call(api.fetchCustomerList);
+        const {page, users, wx_profiles} = yield call(api.fetchCustomerList, pagination.page, pagination.page_size);
         const data = users && users.map(u => {
             const profile = wx_profiles.filter(wx => wx.unionid === u.unionid)[0];
             return {

@@ -90,8 +90,9 @@ class CustomerList extends React.Component {
     }
     render() {
         const {fetching, customers, page} = this.props;
+        const {current_page, page_size} = page;
         const data = customers && customers.map((item, index) => {
-            return {...item, key: index + 1};
+            return {...item, key: page_size * (current_page - 1) + index + 1};
         });
         // const { fetching } = this.props.customer.ui;
         // const { onFilterInputChange, onFilterSearch, onFilterReset } = this;
