@@ -12,7 +12,7 @@ var plugins = [
         template: './templates/index.html',
         chunks: ['vendor', 'app', 'manifest'],
         inject: false,
-        title: 'ABC 后台管理',
+        title: '农行活动管理后台',
         favicon: './src/assets/favicon.ico',
     }),
     new webpack.optimize.CommonsChunkPlugin({

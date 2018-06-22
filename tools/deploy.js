@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 const USER = 'root';
 const HOST = 'obenben.com';
 const PORT = 22;
-const PATH = '/data/sites/qtour.obenben.com/app';
+const PATH = '/data/sites/abc-admin.obenben.com/app';
 
 var cmd = `rsync -Pvr -e "ssh -o StrictHostKeyChecking=no -p ${PORT}" dist/ ${USER}@${HOST}:${PATH}`;
 
