@@ -11,11 +11,11 @@ export const getToken = () => {
         const { exp } = JSON.parse(atob(token.split('.')[1]));
         if (+new Date() > exp * 1000) {
             window.localStorage.removeItem('token');
-            return null;
+            return '';
         }
         return token;
     }
-    return null;
+    return '';
 };
 
 export const getDefaultLocale = () => {

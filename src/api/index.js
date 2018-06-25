@@ -77,7 +77,7 @@ export const fetchLogin = (username, password) => {
 // 获取用户自己的信息
 export const fetchProfile = () => {
     const access_token = store.getState().app.token;
-    const id = JSON.parse(atob(access_token.split('.')[1])).sub;
+    const id = access_token && JSON.parse(atob(access_token.split('.')[1])).sub;
     return _authFetchJson(`/api/users/${id}`);
 };
 

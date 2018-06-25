@@ -206,7 +206,8 @@ class CustomerList extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchCustomerList({page: 1, page_size: 10});
+        // 默认为第一页，如若点击第3页详细信息或问卷结果，则回到第3页
+        this.props.fetchCustomerList({page: this.props.page.current_page, page_size: 10});
     }
     componentWillReceiveProps(nextProps) {
         if (!this.props.profile && nextProps.profile) {
